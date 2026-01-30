@@ -164,6 +164,6 @@ Instructions define the program's entry points. Parameter types: `Signer`, accou
 
 ## License
 
-MIT OR Apache-2.0 © SOL-X Contributors
+MIT OR Apache-2.0 © 2026 SOL-X Contributors
 
 *Anchor stays. The syntax doesn’t have to.*
