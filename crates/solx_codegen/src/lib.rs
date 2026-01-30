@@ -11,7 +11,7 @@ pub fn generate_anchor_code(hir: &Hir) -> Result<String> {
 
     // Generate account structs
     for account in &program.accounts {
-        output.push_str(&format!("#[account]\n"));
+        output.push_str("#[account]\n");
         output.push_str(&format!("pub struct {} {{\n", account.name));
         for field in &account.fields {
             output.push_str(&format!(
@@ -24,7 +24,7 @@ pub fn generate_anchor_code(hir: &Hir) -> Result<String> {
     }
 
     // Generate program module
-    output.push_str(&format!("#[program]\n"));
+    output.push_str("#[program]\n");
     output.push_str(&format!("pub mod {} {{\n", program.name.to_lowercase()));
     output.push_str("    use super::*;\n\n");
 
@@ -32,7 +32,7 @@ pub fn generate_anchor_code(hir: &Hir) -> Result<String> {
     for instruction in &program.instructions {
         output.push_str(&format!("    pub fn {}(\n", instruction.name));
         output.push_str("        ctx: Context<");
-        output.push_str(&format!("{}", instruction.name));
+        output.push_str(instruction.name.as_str());
         output.push_str("Context>,\n");
 
         // Generate parameters
@@ -60,7 +60,7 @@ pub fn generate_anchor_code(hir: &Hir) -> Result<String> {
 
     // Generate context structs
     for instruction in &program.instructions {
-        output.push_str(&format!("#[derive(Accounts)]\n"));
+        output.push_str("#[derive(Accounts)]\n");
         output.push_str(&format!("pub struct {}Context<'info> {{\n", instruction.name));
 
         // Find init account statements to determine which accounts need init
@@ -115,7 +115,7 @@ pub fn generate_anchor_code(hir: &Hir) -> Result<String> {
                             payer, size
                         ));
                     } else {
-                        output.push_str(&format!("    #[account(mut)]\n"));
+                        output.push_str("    #[account(mut)]\n");
                     }
                     output.push_str(&format!(
                         "    pub {}: Account<'info, {}>,\n",
@@ -172,14 +172,14 @@ fn generate_statement(stmt: &Statement, context_name: &str) -> String {
     }
 }
 
-fn generate_expr(expr: &Expr, context_name: &str) -> String {
+fn generate_expr(expr: &Expr, _context_name: &str) -> String {
     match expr {
         Expr::Ident(name) => {
             // Check if it's a context field
             format!("ctx.accounts.{}", name)
         }
         Expr::FieldAccess { object, field } => {
-            let obj_str = generate_expr(object, context_name);
+            let obj_str = generate_expr(object, _context_name);
             format!("{}.{}", obj_str, field)
         }
         Expr::Literal(lit) => match lit {
@@ -189,8 +189,8 @@ fn generate_expr(expr: &Expr, context_name: &str) -> String {
             Literal::String(s) => format!("\"{}\"", s),
         },
         Expr::BinaryOp { op, left, right } => {
-            let left_str = generate_expr(left, context_name);
-            let right_str = generate_expr(right, context_name);
+            let left_str = generate_expr(left, _context_name);
+            let right_str = generate_expr(right, _context_name);
             let op_str = match op {
                 BinOp::Add => "+",
                 BinOp::Sub => "-",
@@ -213,7 +213,7 @@ fn generate_expr(expr: &Expr, context_name: &str) -> String {
                 UnOp::Not => "!",
                 UnOp::Neg => "-",
             };
-            format!("{}{}", op_str, generate_expr(operand, context_name))
+            format!("{}{}", op_str, generate_expr(operand, _context_name))
         }
     }
 }

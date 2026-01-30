@@ -13,7 +13,7 @@ version = "0.1.0"
 edition = "2021"
 authors = ["SOL-X Contributors"]
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/yourusername/sol-x"
+repository = "https://github.com/solxapp/sol-x"
 
 [workspace.dependencies]
 logos = "0.14"

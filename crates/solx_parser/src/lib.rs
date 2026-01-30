@@ -74,7 +74,7 @@ fn program_parser() -> impl Parser<char, Program, Error = Simple<char>> {
         just("i64").to(ParamType::I64),
         just("bool").to(ParamType::Bool),
         just("String").to(ParamType::String),
-        ident.map(|name| ParamType::Account(name)),
+        ident.map(ParamType::Account),
     ))
     .padded();
 
@@ -204,7 +204,7 @@ fn program_parser() -> impl Parser<char, Program, Error = Simple<char>> {
                 right: Box::new(rhs),
             });
 
-        let logical_or = logical_and
+        logical_and
             .clone()
             .then(
                 just("||")
@@ -216,9 +216,7 @@ fn program_parser() -> impl Parser<char, Program, Error = Simple<char>> {
                 op: BinOp::Or,
                 left: Box::new(lhs),
                 right: Box::new(rhs),
-            });
-
-        logical_or
+            })
     });
 
     let statement_parser = recursive(|_stmt| {
