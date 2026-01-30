@@ -1,0 +1,20 @@
+[package]
+name = "solx_cli"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "solx"
+path = "src/main.rs"
+
+[dependencies]
+solx_ast = { path = "../solx_ast" }
+solx_parser = { path = "../solx_parser" }
+solx_hir = { path = "../solx_hir" }
+solx_codegen = { path = "../solx_codegen" }
+clap = { workspace = true }
+anyhow = { workspace = true }
+serde_json = { workspace = true }

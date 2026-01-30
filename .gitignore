@@ -1,0 +1,44 @@
+# Rust
+/target/
+**/target/
+**/*.rs.bk
+Cargo.lock
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Anchor / Solana
+.anchor/
+node_modules/
+*.so
+*.dylib
+*.dll
+test-ledger/
+.deploy/
+
+# Solana keypairs (never commit secret keys)
+*-keypair.json
+*.keypair.json
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+
+# Build and debug
+*.pdb
+*.exe
+*.dSYM/
+
+# Coverage and reports
+coverage/
+*.lcov
+tarpaulin-report.html

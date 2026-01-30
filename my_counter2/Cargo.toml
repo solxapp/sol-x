@@ -1,0 +1,22 @@
+[package]
+name = "my_counter2"
+version = "0.1.0"
+description = "Generated Anchor program from SOL-X"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "my_counter2"
+
+[features]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+cpi = ["no-entrypoint"]
+default = []
+
+[dependencies]
+anchor-lang = "0.30.0"
+
+[profile.release]
+overflow-checks = true

@@ -1,0 +1,36 @@
+program Escrow
+
+account EscrowState {
+  maker: Pubkey
+  taker: Pubkey
+  amount: u64
+  mint: Pubkey
+  initialized: bool
+}
+
+instruction initialize(
+  maker: Signer,
+  taker: Pubkey,
+  amount: u64,
+  mint: Pubkey,
+  escrow: EscrowState
+) {
+  init account escrow: EscrowState payer maker
+  escrow.maker = maker.key
+  escrow.taker = taker
+  escrow.amount = amount
+  escrow.mint = mint
+  escrow.initialized = true
+}
+
+instruction cancel(maker: Signer, escrow: EscrowState) {
+  require escrow.maker == maker.key
+  require escrow.initialized == true
+  escrow.initialized = false
+}
+
+instruction complete(taker: Signer, escrow: EscrowState) {
+  require escrow.taker == taker.key
+  require escrow.initialized == true
+  escrow.initialized = false
+}

@@ -1,0 +1,12 @@
+[package]
+name = "solx_hir"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+solx_ast = { path = "../solx_ast" }
+anyhow = { workspace = true }
+thiserror = { workspace = true }

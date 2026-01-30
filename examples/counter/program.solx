@@ -1,0 +1,23 @@
+program Counter
+
+account CounterState {
+  authority: Pubkey
+  count: u64
+}
+
+instruction initialize(authority: Signer, state: CounterState) {
+  init account state: CounterState payer authority
+  state.authority = authority.key
+  state.count = 0
+}
+
+instruction increment(authority: Signer, state: CounterState) {
+  require state.authority == authority.key
+  state.count += 1
+}
+
+instruction decrement(authority: Signer, state: CounterState) {
+  require state.authority == authority.key
+  require state.count > 0
+  state.count -= 1
+}

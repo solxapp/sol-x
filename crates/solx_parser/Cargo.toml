@@ -1,0 +1,14 @@
+[package]
+name = "solx_parser"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+solx_ast = { path = "../solx_ast" }
+chumsky = { workspace = true }
+logos = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }

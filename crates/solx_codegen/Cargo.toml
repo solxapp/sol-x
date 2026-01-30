@@ -1,0 +1,13 @@
+[package]
+name = "solx_codegen"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+solx_ast = { path = "../solx_ast" }
+solx_hir = { path = "../solx_hir" }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
